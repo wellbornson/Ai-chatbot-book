@@ -6,3 +6,8 @@ dist/
 *.egg-info/
 .env*
 .pytest_cache/
+
+# Database
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
