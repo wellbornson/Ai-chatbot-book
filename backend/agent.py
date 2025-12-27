@@ -70,8 +70,14 @@ rag_agent = Agent(
 )
 
 def get_session(thread_id: str):
-    os.makedirs(".conversations", exist_ok=True)
-    db_path = f".conversations/history.sqlite"
+    if os.getenv("VERCEL"):
+        # Vercel serverless functions have a read-only filesystem except for /tmp
+        db_dir = "/tmp/.conversations"
+    else:
+        db_dir = ".conversations"
+        
+    os.makedirs(db_dir, exist_ok=True)
+    db_path = f"{db_dir}/history.sqlite"
     return SQLiteSession(thread_id, db_path)
 
 @click.group()
