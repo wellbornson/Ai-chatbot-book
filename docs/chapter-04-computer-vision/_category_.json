@@ -1,0 +1,8 @@
+{
+  "label": "Chapter 4: Computer Vision for Humanoids",
+  "position": 4,
+  "link": {
+    "type": "generated-index",
+    "description": "Explore computer vision techniques for enabling robot perception."
+  }
+}

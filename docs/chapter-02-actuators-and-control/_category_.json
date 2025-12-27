@@ -1,0 +1,8 @@
+{
+  "label": "Chapter 2: Actuators and Motor Control",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Learn about the various actuators and motor control loops used in humanoid robotics."
+  }
+}

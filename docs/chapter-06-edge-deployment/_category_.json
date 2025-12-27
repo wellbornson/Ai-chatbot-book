@@ -1,0 +1,8 @@
+{
+  "label": "Chapter 6: Deploying AI Models to Edge",
+  "position": 6,
+  "link": {
+    "type": "generated-index",
+    "description": "Learn how to optimize and deploy AI models to edge hardware like Jetson Nano and Raspberry Pi."
+  }
+}

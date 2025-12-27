@@ -11,32 +11,32 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
+    title: 'ADVANCED TECHNOLOGY', // Changed from "Easy to Use"
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Experience the cutting edge of documentation systems. Designed for 
+        high-performance teams building the future of digital knowledge.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
+    title: 'FOCUS ON WHAT MATTERS',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Streamline your workflow with our intelligent core. We handle the 
+        complex rendering logic so you can deploy critical data instantly.
       </>
     ),
   },
   {
-    title: 'Powered by React',
+    title: 'POWERED BY REACT',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Built on the robust React ecosystem. Extend functionality with 
+        component-driven architecture and seamless integration.
       </>
     ),
   },
@@ -45,12 +45,15 @@ const FeatureList: FeatureItem[] = [
 function Feature({title, Svg, description}: FeatureItem) {
   return (
     <div className={clsx('col col--4')}>
-      <div className="text--center">
-        <Svg className={styles.featureSvg} role="img" />
-      </div>
-      <div className="text--center padding-horiz--md">
-        <Heading as="h3">{title}</Heading>
-        <p>{description}</p>
+      {/* Added "feature-card" class for the glassmorphism/3D effect */}
+      <div className="feature-card"> 
+        <div className="text--center">
+          <Svg className="featureSvg" role="img" />
+        </div>
+        <div className="text--center padding-horiz--md">
+          <Heading as="h3" className="feature-title">{title}</Heading>
+          <p>{description}</p>
+        </div>
       </div>
     </div>
   );
@@ -58,7 +61,7 @@ function Feature({title, Svg, description}: FeatureItem) {
 
 export default function HomepageFeatures(): ReactNode {
   return (
-    <section className={styles.features}>
+    <section className="features">
       <div className="container">
         <div className="row">
           {FeatureList.map((props, idx) => (

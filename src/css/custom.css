@@ -4,27 +4,599 @@
  * work well for content-centric websites.
  */
 
-/* You can override the default Infima variables here. */
+/* ---------------------------------------------------------
+   1. GLOBAL VARIABLES & RESET - THE "AI/DIGITAL" THEME
+--------------------------------------------------------- */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  /* Core Colors - Cyberpunk/Neon Palette */
+  --ifm-color-primary: #00f2ff; /* Cyan Neon */
+  --ifm-color-primary-dark: #00d2de;
+  --ifm-color-primary-darker: #00c3ce;
+  --ifm-color-primary-darkest: #00a1aa;
+  --ifm-color-primary-light: #20f6ff;
+  --ifm-color-primary-lighter: #34f7ff;
+  --ifm-color-primary-lightest: #6ffaff;
+
+  /* Secondary Accents */
+  --ai-magenta: #ff00ff;
+  --ai-purple: #bd00ff;
+  --ai-bg-dark: #050a14;
+  --ai-bg-card: #0f172a;
+
+  /* Fonts */
+  --ifm-font-family-base: 'Orbitron', 'Segoe UI', sans-serif; /* Tech feel */
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  /* Backgrounds */
+  --ifm-background-color: var(--ai-bg-dark);
+  --ifm-navbar-background-color: rgba(5, 10, 20, 0.85); /* Glass effect */
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+/* Force Dark Mode aesthetic even in light mode for full effect */
+[data-theme='light'] {
+  --ifm-color-primary: #00f2ff;
+  --ifm-background-color: var(--ai-bg-dark);
+  --ifm-font-color-base: #e3e3e3;
+  --ifm-navbar-background-color: rgba(5, 10, 20, 0.9);
+}
+
+body {
+  background: radial-gradient(circle at 50% 50%, #1a233b 0%, #050a14 100%);
+  color: #fff;
+  overflow-x: hidden; /* Prevent horizontal scroll from effects */
+}
+
+/* ---------------------------------------------------------
+   2. HERO SECTION - SHINING & DIGITAL
+--------------------------------------------------------- */
+.hero--primary {
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+  padding: 4rem 0 8rem 0; /* Extra padding bottom for 3D look */
+  text-align: center;
+}
+
+/* Animated Grid Background for Hero */
+.hero--primary::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: 
+    linear-gradient(rgba(0, 242, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 242, 255, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
+  animation: gridMove 20s linear infinite;
+  z-index: -1;
+  opacity: 0.4;
+}
+
+@keyframes gridMove {
+  0% { transform: perspective(500px) rotateX(60deg) translateY(0) translateZ(-200px); }
+  100% { transform: perspective(500px) rotateX(60deg) translateY(50px) translateZ(-200px); }
+}
+
+.hero__title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 4rem;
+  font-weight: 900;
+  background: linear-gradient(to right, #00f2ff, #bd00ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 20px rgba(0, 242, 255, 0.5);
+  animation: pulseGlow 3s infinite alternate;
+}
+
+.hero__subtitle {
+  font-size: 1.5rem;
+  color: #a8b2d1;
+  margin-bottom: 2rem;
+}
+
+/* Digital Buttons */
+.button--secondary {
+  background: transparent;
+  border: 2px solid var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+  box-shadow: 0 0 10px var(--ifm-color-primary);
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
+  position: relative;
+  overflow: hidden;
+}
+
+.button--secondary::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(transparent, rgba(0, 242, 255, 0.3), transparent);
+  transform: rotate(45deg);
+  animation: shine 3s infinite;
+}
+
+.button--secondary:hover {
+  background: var(--ifm-color-primary);
+  color: #000;
+  box-shadow: 0 0 30px var(--ifm-color-primary);
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) rotate(45deg); }
+}
+
+@keyframes pulseGlow {
+  0% { text-shadow: 0 0 10px rgba(0, 242, 255, 0.3); }
+  100% { text-shadow: 0 0 30px rgba(189, 0, 255, 0.6); }
+}
+
+/* ---------------------------------------------------------
+   3. FEATURES SECTION - 3D GLASS CARDS
+--------------------------------------------------------- */
+/* Override the features container style */
+.features {
+  padding: 4rem 0;
+  background: transparent;
+}
+
+.col--4 {
+  perspective: 1000px; /* Enable 3D space */
+}
+
+/* Card Styling */
+.feature-card {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(0, 242, 255, 0.2);
+  border-radius: 16px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  transform-style: preserve-3d;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  height: 100%;
+  margin: 10px;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px) rotateX(5deg) scale(1.02);
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 20px 50px rgba(0, 242, 255, 0.2);
+}
+
+.featureSvg {
+  height: 200px;
+  width: 200px;
+  filter: drop-shadow(0 0 10px var(--ifm-color-primary)); /* Glowing SVGs */
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+.feature-title {
+  color: var(--ifm-color-primary);
+  font-family: 'Orbitron', sans-serif;
+  margin-top: 1rem;
+  text-transform: uppercase;
+}
+
+/* ---------------------------------------------------------
+   4. DIGITAL CLOCK - FLOATING & ANIMATED
+--------------------------------------------------------- */
+.digital-clock-container {
+  position: fixed;
+  top: 80px; /* Below navbar */
+  right: 20px;
+  z-index: 100;
+  animation: moveUpDown 10s ease-in-out infinite;
+}
+
+.digital-clock {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #00f2ff;
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid #00f2ff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+  text-shadow: 0 0 5px #00f2ff;
+}
+
+@keyframes moveUpDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(30px); }
+}
+
+/* ---------------------------------------------------------
+   5. NAVBAR & FOOTER
+--------------------------------------------------------- */
+.navbar {
+  border-bottom: 1px solid rgba(0, 242, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+.navbar__title {
+  font-weight: bold;
+  background: linear-gradient(to right, #fff, #00f2ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.footer {
+  background: #020408;
+  border-top: 1px solid rgba(189, 0, 255, 0.2);
+}
+
+/* ---------------------------------------------------------
+   6. CHAT WIDGET - DIGITAL AI ASSISTANT
+--------------------------------------------------------- */
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+@keyframes slide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Ensure the chat widget is properly positioned */
+.chat-widget-container {
+  position: fixed;
+  bottom: 30px;
+  left: 30px; /* Moved to LEFT side per user request */
+  right: auto;
+  z-index: 9999;
+  font-family: 'Orbitron', monospace;
+  perspective: 1000px; /* For 3D floating effect */
+}
+
+/* 3D Chat Window Effect */
+.chat-window-3d {
+  transform: rotateY(5deg) rotateX(2deg);
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+  box-shadow: -20px 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(0, 242, 255, 0.2);
+}
+
+.chat-window-3d:hover {
+  transform: rotateY(0deg) rotateX(0deg) scale(1.02);
+}
+
+/* Mini 3D Cube for Chat Button */
+.mini-cube-wrapper {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: spinCube 5s linear infinite;
+}
+
+.mini-cube-face {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #00f2ff;
+  background: rgba(0, 242, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: #fff;
+  backface-visibility: visible;
+}
+
+.mini-front  { transform: rotateY(0deg) translateZ(20px); }
+.mini-back   { transform: rotateY(180deg) translateZ(20px); }
+.mini-right  { transform: rotateY(90deg) translateZ(20px); }
+.mini-left   { transform: rotateY(-90deg) translateZ(20px); }
+.mini-top    { transform: rotateX(90deg) translateZ(20px); }
+.mini-bottom { transform: rotateX(-90deg) translateZ(20px); }
+
+/* ---------------------------------------------------------
+   7. TEACHER GREETING - ULTRA ADVANCED HUD STYLE
+--------------------------------------------------------- */
+.teacher-greeting-advanced {
+  position: absolute;
+  left: 20px;
+  top: 100px;
+  width: 300px;
+  background: rgba(5, 10, 20, 0.7); /* Darker tech bg */
+  backdrop-filter: blur(15px);
+  padding: 20px;
+  border: 1px solid rgba(0, 242, 255, 0.3);
+  box-shadow: 0 0 20px rgba(0, 242, 255, 0.15);
+  font-family: 'Orbitron', monospace;
+  z-index: 100;
+  clip-path: polygon(
+    0 0, 
+    100% 0, 
+    100% 85%, 
+    90% 100%, 
+    0 100%
+  ); /* Cut corner effect */
+  animation: slideInHUD 1s ease-out;
+}
+
+/* Tech Corners */
+.tech-corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 2px solid #00f2ff;
+  transition: all 0.3s ease;
+}
+.tech-corner-tl { top: 0; left: 0; border-right: none; border-bottom: none; }
+.tech-corner-tr { top: 0; right: 0; border-left: none; border-bottom: none; }
+.tech-corner-bl { bottom: 0; left: 0; border-right: none; border-top: none; }
+.tech-corner-br { bottom: 0; right: 0; border-left: none; border-top: none; display: none; /* Due to clip-path */ }
+
+.teacher-greeting-advanced:hover .tech-corner {
+  width: 20px;
+  height: 20px;
+  box-shadow: 0 0 10px #00f2ff;
+}
+
+/* Header */
+.greeting-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.65rem;
+  color: rgba(0, 242, 255, 0.7);
+  margin-bottom: 15px;
+  border-bottom: 1px solid rgba(0, 242, 255, 0.2);
+  padding-bottom: 5px;
+  letter-spacing: 1px;
+}
+
+.status-indicator {
+  color: #00ff00;
+  text-shadow: 0 0 5px #00ff00;
+  animation: blink 2s infinite;
+}
+
+/* Mentor Blocks */
+.mentor-block {
+  margin-bottom: 15px;
+  border-left: 2px solid rgba(0, 242, 255, 0.3);
+  padding-left: 10px;
+  background: linear-gradient(90deg, rgba(0, 242, 255, 0.05), transparent);
+  transition: border-left-color 0.3s;
+}
+
+.mentor-block:hover {
+  border-left-color: #ff00ff;
+}
+
+.mentor-label {
+  display: block;
+  font-size: 0.6rem;
+  color: #a8b2d1;
+  margin-bottom: 2px;
+  letter-spacing: 2px;
+}
+
+.glitch-name {
+  color: #fff !important;
+  font-size: 1.2rem;
+  margin: 0;
+  font-weight: 800;
+  text-shadow: 2px 2px 0px rgba(0, 242, 255, 0.5);
+  position: relative;
+}
+
+/* Message Box */
+.message-box {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  font-size: 0.75rem;
+  color: #e0e0e0;
+  line-height: 1.4;
+  margin-top: 10px;
+}
+
+.data-stream {
+  font-size: 0.6rem;
+  color: #ff00ff;
+  margin-bottom: 5px;
+  font-family: monospace;
+  text-transform: uppercase;
+}
+
+/* Scan Line */
+.scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(0, 242, 255, 0.5);
+  box-shadow: 0 0 10px #00f2ff;
+  animation: scanHUD 4s linear infinite;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+@keyframes scanHUD {
+  0% { top: 0%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+@keyframes slideInHUD {
+  from { transform: translateX(-50px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@media screen and (max-width: 996px) {
+  .teacher-greeting-advanced {
+    position: relative;
+    left: 0;
+    top: 0;
+    margin: 0 auto 2rem auto; /* Center it on mobile */
+    width: 90%;
+  }
+}
+
+/* ---------------------------------------------------------
+   9. CUSTOM 3D AI LOGO (CSS ONLY)
+--------------------------------------------------------- */
+.scene-3d {
+  width: 200px;
+  height: 200px;
+  perspective: 1000px;
+}
+
+.cube-3d {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: spinCube 10s linear infinite;
+}
+
+.cube-face {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border: 2px solid #00f2ff;
+  background: rgba(0, 242, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 5rem;
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 0 20px #00f2ff;
+  backface-visibility: visible;
+}
+
+/* Face Transforms */
+.face-front  { transform: rotateY(0deg) translateZ(100px); }
+.face-back   { transform: rotateY(180deg) translateZ(100px); }
+.face-right  { transform: rotateY(90deg) translateZ(100px); }
+.face-left   { transform: rotateY(-90deg) translateZ(100px); }
+.face-top    { transform: rotateX(90deg) translateZ(100px); }
+.face-bottom { transform: rotateX(-90deg) translateZ(100px); }
+
+/* Inner Glowing Core */
+.core-3d {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 100px; height: 100px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, #ff00ff, #bd00ff);
+  border-radius: 50%;
+  box-shadow: 0 0 50px #ff00ff;
+  animation: pulseCore 2s ease-in-out infinite alternate;
+}
+
+@keyframes spinCube {
+  0% { transform: rotateX(0deg) rotateY(0deg); }
+  100% { transform: rotateX(360deg) rotateY(360deg); }
+}
+
+@keyframes pulseCore {
+  0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; box-shadow: 0 0 80px #ff00ff; }
+}
+
+/* Adjust HUD container to fit this big 3D object */
+.ai-hero-hud {
+  min-width: 300px; /* Ensure space for rotation */
+}
+
+/* Original styles replaced/kept below if needed */
+.hud-hero-image {
+  display: none; /* Hide old image styles just in case */
+}
+
+/* ---------------------------------------------------------
+   8. CREATOR INFO - DIGITAL & FANCY
+--------------------------------------------------------- */
+.creator-info {
+  font-family: 'Orbitron', sans-serif;
+  color: #00f2ff;
+  font-size: 1.1rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+  position: relative;
+  padding: 5px 15px;
+  background: rgba(0, 242, 255, 0.05);
+  border-radius: 4px;
+  text-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.creator-name {
+  color: #fff;
+}
+
+.creator-sep {
+  color: #ff00ff;
+  animation: pulse-pink 1.5s infinite;
+}
+
+.creator-phone {
+  font-size: 0.9rem;
+}
+
+.fancy-slide-bar {
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, #00f2ff, #ff00ff);
+  box-shadow: 0 0 10px #00f2ff;
+  animation: slide-fancy 3s ease-in-out infinite;
+}
+
+@keyframes slide-fancy {
+  0% { width: 0%; left: 0; }
+  50% { width: 100%; left: 0; }
+  100% { width: 0%; left: 100%; }
+}
+
+@keyframes pulse-pink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+@media screen and (max-width: 768px) {
+  .creator-info {
+    font-size: 0.8rem;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .creator-phone { font-size: 0.7rem; }
 }

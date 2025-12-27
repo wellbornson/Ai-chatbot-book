@@ -1,0 +1,36 @@
+/sp.specify Integrate backend RAG system with frontend using FastAPI
+
+Target audience: Developers connecting RAG backends to web frontends Focus: Seamless API-based communication between frontend and RAG agent
+
+Success criteria:
+
+FastAPI server exposes a query endpoint
+
+Frontend can send user queries and receive agent responses
+
+Backend successfully calls the Agent (Spec-3) with retrieval
+
+Local integration works end-to-end without errors
+
+Constraints:
+
+Tech stack: Python, FastAPI, OpenAI Agents SDK
+
+Environment: Local development setup
+
+Format: JSON-based request/response
+
+
+
+
+/sp.plan Spec-4: Frontend-Backend Integration with FastAPI
+
+Confirm existing chatbot UI in book_frontend/ (Docusaurus) is used as-is
+
+Build chatbot UI to display across the entire book frontend
+
+Create api.py at project root and set up FastAPI server
+
+Expose a query endpoint that calls the agent from agent.py
+
+Return agent responses to the frontend via JSON

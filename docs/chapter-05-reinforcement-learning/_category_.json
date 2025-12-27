@@ -1,0 +1,8 @@
+{
+  "label": "Chapter 5: Reinforcement Learning",
+  "position": 5,
+  "link": {
+    "type": "generated-index",
+    "description": "Dive into Reinforcement Learning to train adaptive robot behaviors in physical environments."
+  }
+}
